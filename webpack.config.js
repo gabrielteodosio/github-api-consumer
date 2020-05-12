@@ -9,6 +9,7 @@ module.exports = {
     hot: true,
     historyApiFallback: true
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -42,11 +43,14 @@ module.exports = {
       filename: 'index.html',
       template: path.resolve(__dirname, 'public/index.html'),
     }),
+    new webpack.EnvironmentPlugin({
+      API_URL: 'Gabriel'
+    }),
     new webpack.HotModuleReplacementPlugin()
   ],
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash].bundle.js',
     publicPath: '/',
+    filename: '[name].[hash].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
   },
 };
