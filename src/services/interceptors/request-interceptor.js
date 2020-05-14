@@ -8,9 +8,10 @@ export default function RequestInterceptor () {
 
     const token = path(['auth', 'token'], state)
 
+    request.headers.Accept = 'application/json'
+    request.headers['Content-Type'] = 'application/json'
+
     if (token) {
-      request.headers.Accept = 'application/json'
-      request.headers['Content-Type'] = 'application/json'
       request.headers.Authorization = `Bearer ${token}`
     }
 

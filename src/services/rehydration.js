@@ -18,7 +18,6 @@ function updateReducers(store) {
     } else {
       persistStore(store, null, startup)
     }
-
   } catch {
     persistStore(store, null, startup)
     localStorage.setItem('reducerVersion', reducerVersion)

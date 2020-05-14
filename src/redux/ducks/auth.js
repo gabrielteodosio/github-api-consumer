@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { createActions, createReducer } from 'reduxsauce'
+import {createActions, createReducer} from 'reduxsauce'
 
 export const { Types, Creators } = createActions({
   loginRequest: ['email', 'password'],

@@ -22,7 +22,7 @@ export default (rootReducer, rootSaga) => {
   /* ------------- Assemble Middleware ------------- */
   enhancers.push(applyMiddleware(...middleware))
 
-  if (window.__REDUX_DEVTOOLS_EXTENSION__) {
+  if (window.__REDUX_DEVTOOLS_EXTENSION__ && process.env.NODE_ENV !== 'production') {
     enhancers.push(window.__REDUX_DEVTOOLS_EXTENSION__())
   }
 

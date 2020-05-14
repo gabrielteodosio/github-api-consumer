@@ -1,12 +1,3 @@
-const objectErros = {
-  400: 'Problemas com as propriedades enviadas',
-  401: 'Request não autorizado',
-  402: 'Usuário inadinplente',
-  403: 'Usuário inativo',
-  404: 'Dados não encontrados',
-  500: 'Erro não mapeado'
-}
-
 export default function ResponseInterceptor () {
   return [
     (response) => {

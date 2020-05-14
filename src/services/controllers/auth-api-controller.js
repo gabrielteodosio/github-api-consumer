@@ -1,6 +1,6 @@
 export default {
-  create (http) {
-    function logout () {
+  create(http) {
+    function logout() {
       return localStorage.removeItem('userSession')
     }
 

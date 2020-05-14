@@ -1,34 +1,21 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Button} from '@material-ui/core'
 
 import styles from './login.module.less'
-import {Creators as AuthActions} from '../../redux/ducks/auth'
 
-function LoginPage({logout}) {
+function LoginPage() {
   function handleButtonClick(e) {
     e.preventDefault()
-    logout()
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.GH_CLIENT_ID}`;
   }
 
   return (
     <div className={styles.container}>
       <Button onClick={handleButtonClick} variant="contained" color="primary">
-        Olá Mundo
+        Entrar com o Github
       </Button>
     </div>
   )
 }
 
-const mapStateToProps = ({auth}) => ({
-  ...auth
-})
-
-const mapDispatchToProps = {
-  ...AuthActions
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginPage)
+export default LoginPage
