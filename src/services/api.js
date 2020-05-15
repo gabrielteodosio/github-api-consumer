@@ -7,14 +7,16 @@ import ResponseInterceptor from './interceptors/response-interceptor'
 
 // Controllers
 import AuthApiController from './controllers/auth-api-controller'
+import ReposApiController from './controllers/repos-api-controller'
 
 // The initializer
 const create = (baseURL = process.env.API_URL) => {
   const http = apisauce.create({
     baseURL,
     headers: {
-      'Cache-Control': 'no-cache',
-      'Content-Type': 'application/json',
+      'cache-control': 'no-cache',
+      'accept': 'application/json',
+      'content-type': 'application/json',
     },
     timeout: 3000
   })
@@ -24,6 +26,7 @@ const create = (baseURL = process.env.API_URL) => {
 
   const api = {
     ...AuthApiController.create(http),
+    ...ReposApiController.create(http),
   }
 
   // Verify http status code, etc.

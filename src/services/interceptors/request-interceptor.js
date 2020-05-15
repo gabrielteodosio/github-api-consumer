@@ -1,18 +1,13 @@
-import { path } from 'ramda'
-
-import store from '../../redux'
 
 export default function RequestInterceptor () {
   return (request) => {
-    const state = store.getState()
+    const token = localStorage.getItem('gh_access_token')
 
-    const token = path(['auth', 'token'], state)
-
-    request.headers.Accept = 'application/json'
-    request.headers['Content-Type'] = 'application/json'
+    request.headers.accept = 'application/json'
+    request.headers['content-type'] = 'application/json'
 
     if (token) {
-      request.headers.Authorization = `Bearer ${token}`
+      request.headers.authorization = `token ${token}`
     }
 
     return request

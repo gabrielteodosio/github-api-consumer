@@ -1,30 +1,39 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from 'react-redux'
 import {useLocation} from 'react-router-dom'
 
-import {Creators as AuthActions} from '../../redux/ducks/auth'
+import {Creators as ReposActions} from '../../redux/ducks/repos'
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
-function ReposPage({getAccess}) {
+function ReposPage({
+  fetchRepos,
+  repos: { repos },
+}) {
   const query = useQuery()
   const access_token = query.get('access_token')
 
   useEffect(() => {
-    console.log({ access_token })
+    localStorage.setItem('gh_access_token', access_token)
+    fetchRepos()
   }, [])
 
   return (
     <div>
-      {access_token}
+      <h1>Repos</h1>
+      {repos.map((repo) => (
+        <h5>{repo.name}</h5>
+      ))}
     </div>
   )
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = ({ repos }) => ({
+  repos
+})
 
 const mapDispatchToProps = {
-  ...AuthActions
+  ...ReposActions
 }
 
 export default connect(

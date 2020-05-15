@@ -1,3 +1,12 @@
+const objectErros = {
+  400: 'Problemas com as propriedades enviadas',
+  401: 'Request não autorizado',
+  402: 'Usuário inadinplente',
+  403: 'Usuário inativo',
+  404: 'Dados não encontrados',
+  500: 'Erro não mapeado'
+}
+
 export default function ResponseInterceptor () {
   return [
     (response) => {
@@ -14,7 +23,7 @@ export default function ResponseInterceptor () {
 
       const responseErrors = {
         errorStatus: error.response.status,
-        errorMsessage: objectErros[error.response.status]
+        errorMessage: objectErros[error.response.status]
       }
 
       return Promise.reject(responseErrors)
