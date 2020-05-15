@@ -14,7 +14,6 @@ const create = (baseURL = process.env.API_URL) => {
   const http = apisauce.create({
     baseURL,
     headers: {
-      'cache-control': 'no-cache',
       'accept': 'application/json',
       'content-type': 'application/json',
     },

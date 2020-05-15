@@ -8,16 +8,12 @@ const api = API.create()
 function* fetchRepos() {
   try {
     const {
-      success, repos
+      data: { success, repos }
     } = yield call(api.repos.fetchRepos)
-
-    console.log({ success, repos })
 
     if (!success) {
       throw new Error()
     }
-
-    console.log('Success!')
 
     yield put(ReposActions.fetchReposSuccess(repos))
   } catch (error) {
