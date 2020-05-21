@@ -1,18 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {connect} from 'react-redux'
-import {useLocation} from 'react-router-dom'
-import {LinearProgress} from '@material-ui/core'
+import React, {useEffect} from "react";
+import Cookies from 'js-cookie';
+import {connect} from 'react-redux';
+import {LinearProgress} from '@material-ui/core';
 
 import {Creators as ReposActions} from '../../redux/ducks/repos'
 
-const useQuery = () => new URLSearchParams(useLocation().search);
 
 function ReposPage({
   fetchRepos,
   repos: { repos, fetchingRepos },
 }) {
-  const query = useQuery()
-  const access_token = query.get('access_token')
+  const access_token = Cookies.get('access_token')
 
   useEffect(() => {
     localStorage.setItem('gh_access_token', access_token)
