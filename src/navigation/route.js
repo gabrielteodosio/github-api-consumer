@@ -1,10 +1,12 @@
 import React from 'react'
+import Cookies from "js-cookie";
 import {Redirect, Route as RRDRoute} from 'react-router-dom'
 
 import ApplicationLayout from "../components/application-layout";
 
 function Private({children, ...rest}) {
-  const isAuthenticated = true
+  const isAuthenticated = !!Cookies.get('gh_access_token')
+
   return (
     <RRDRoute
       {...rest}
@@ -25,13 +27,13 @@ function Private({children, ...rest}) {
 }
 
 function Route({
-   path,
-   children,
-   exact = false,
-   layout = true,
-   private: isPrivate = false,
- }) {
-  const RComponent = false ? Private : RRDRoute
+ path,
+ children,
+ exact = false,
+ layout = true,
+ private: isPrivate = false,
+}) {
+  const RComponent = isPrivate ? Private : RRDRoute
 
   if (layout) {
     return (
