@@ -1,5 +1,4 @@
 import React from 'react'
-import Cookies from "js-cookie";
 import {Redirect, Route as RRDRoute} from 'react-router-dom'
 
 import ApplicationLayout from "../components/application-layout";

@@ -1,5 +1,3 @@
-import Cookies from "js-cookie";
-
 export default function RequestInterceptor () {
   return (request) => {
     const ghAccessToken = Cookies.get('gh_access_token')
