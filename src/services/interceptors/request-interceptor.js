@@ -1,13 +1,14 @@
+import Cookies from "js-cookie";
 
 export default function RequestInterceptor () {
   return (request) => {
-    const token = localStorage.getItem('gh_access_token')
+    const ghAccessToken = Cookies.get('gh_access_token')
 
     request.headers.accept = 'application/json'
     request.headers['content-type'] = 'application/json'
 
-    if (token) {
-      request.headers.authorization = `token ${token}`
+    if (ghAccessToken) {
+      request.headers.authorization = `token ${ghAccessToken}`
     }
 
     return request

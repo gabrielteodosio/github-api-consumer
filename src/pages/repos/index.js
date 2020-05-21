@@ -10,10 +10,7 @@ function ReposPage({
   fetchRepos,
   repos: { repos, fetchingRepos },
 }) {
-  const access_token = Cookies.get('access_token')
-
   useEffect(() => {
-    localStorage.setItem('gh_access_token', access_token)
     fetchRepos()
   }, [])
 
