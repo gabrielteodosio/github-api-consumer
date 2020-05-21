@@ -1,7 +1,12 @@
 import React from 'react'
-import {Button} from '@material-ui/core'
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import styles from './login.module.less'
+import GithubMark from '../../images/github-mark-white.png'
+import GithubLogo from '../../images/github-logo-white.png'
 
 function LoginPage() {
   function handleButtonClick(e) {
@@ -10,11 +15,25 @@ function LoginPage() {
   }
 
   return (
-    <div className={styles.container}>
-      <Button onClick={handleButtonClick} variant="contained" color="primary">
-        Entrar com o Github
-      </Button>
-    </div>
+    <Grid container component="main" className={styles.root}>
+      <CssBaseline />
+      <Grid item xs={false} sm={4} md={7} className={styles.image}>
+      </Grid>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square className={styles.paper}>
+        <img src={GithubLogo} className={styles.avatar} />
+        <Button
+          fullWidth
+          type="submit"
+          color="primary"
+          variant="contained"
+          className={styles.submit}
+          onClick={handleButtonClick}
+        >
+          <img src={GithubMark} />
+          <span>Entrar com Github</span>
+        </Button>
+      </Grid>
+    </Grid>
   )
 }
 
