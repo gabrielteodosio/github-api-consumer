@@ -47,7 +47,7 @@ function ReposPage({
 
   function filterRepos(text, repos) {
     const filtered = text
-      ? repos.filter(({ full_name: fullName }) => fullName.toLowerCase().match(new RegExp('dac')))
+      ? repos.filter(({ full_name: fullName }) => fullName.toLowerCase().includes(text.toLowerCase()))
       : [];
 
     setFilteredRepos(filtered);
