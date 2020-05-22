@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import _ from 'lodash'
 import {connect} from 'react-redux';
 import { FixedSizeList } from 'react-window';
@@ -19,37 +19,40 @@ import {Creators as ReposActions} from '../../redux/ducks/repos'
 function ReposPage({
   fetchRepos,
   fetchRepoCommits,
-  repos: { commits, fetchingCommits, repos, fetchingRepos },
+  repos: {
+    commits,
+    fetchingCommits,
+    repos,
+    fetchingRepos
+  }
 }) {
-  const debouncedFilter = useRef(_.debounce(filterRepos, 250)).current
-  const [filterContent, setFilterContent] = useState(null)
-  const [filteredRepos, setFilteredRepos] = useState(null)
+  const [filterContent, setFilterContent] = useState('')
+  const [filteredRepos, setFilteredRepos] = useState([])
+  const debouncedFilter = useRef(_.debounce((text, repos) => filterRepos(text, repos), 250)).current
 
-  const reposData = filteredRepos || repos
+  const reposData = filteredRepos.length > 0 ? filteredRepos : repos
 
   useEffect(() => {
     fetchRepos()
   }, [])
 
   useEffect(() => {
-    debouncedFilter(filterContent)
-  }, [filterContent])
-
+    debouncedFilter(filterContent, repos)
+  }, [filterContent, repos])
 
   function handleFilterChange(e) {
-    setFilterContent(e.target.value)
+    const { value } = e.target
+    setFilterContent(value)
   }
 
-  function filterRepos(text) {
-    let filtered = null
+  function filterRepos(text, repos) {
+    const filtered = text
+      ? repos.filter(({ full_name: fullName }) => fullName.toLowerCase().match(new RegExp('dac')))
+      : [];
 
-    if (text) {
-      filtered = repos.filter(({ full_name: fullName }) => fullName.toLowerCase().includes(text.toLowerCase()))
+    console.log({filtered, repos})
 
-      setFilteredRepos(filtered);
-    } else {
-      setFilteredRepos(null);
-    }
+    setFilteredRepos(filtered);
   }
 
   function handleRenderRepository({ index, style }) {
@@ -103,12 +106,13 @@ function ReposPage({
             <Input
               autoFocus
               onChange={handleFilterChange}
+              placeholder={'Filtrar repositório'}
               style={{ margin: '0 20px 10px 20px' }}
             />
             {fetchingRepos ? (
               <LinearProgress color={'primary'} classes={{ barColorPrimary: styles.loading }} />
             ) : (
-              Array.isArray(repos) ? (
+              Array.isArray(reposData) ? (
                 <FixedSizeList height={470} width={'100%'} itemSize={46} itemCount={reposData.length}>
                   {handleRenderRepository}
                 </FixedSizeList>
@@ -134,7 +138,9 @@ function ReposPage({
   )
 }
 
-const mapStateToProps = ({ repos }) => ({
+const mapStateToProps = ({
+  repos
+}) => ({
   repos
 })
 
