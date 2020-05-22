@@ -44,17 +44,19 @@ function ReposPage({
   }
 
   function filterRepos(text) {
-    let filtered = []
+    let filtered = null
 
     if (text) {
       filtered = repos.filter(({ full_name: fullName }) => fullName.toLowerCase().includes(text.toLowerCase()))
 
-      if (filtered.length > 0 || text.length > 0) {
-        setFilteredRepos(filtered.slice(0, 1));
+      if (text.length > 0 && filtered.length > 0) {
+        setFilteredRepos(filtered);
+      } else {
+        setFilteredRepos(null);
       }
+    } else {
+      setFilteredRepos(null);
     }
-
-    setFilteredRepos(null);
   }
 
   function handleRenderRepository({ index, style }) {
