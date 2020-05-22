@@ -3,14 +3,19 @@ import Cookies from "js-cookie";
 
 import {
   Redirect,
-  Route as RRDRoute
+  useLocation,
+  Route as RRDRoute,
 } from "react-router-dom";
 
+const useQuery = () => new URLSearchParams(useLocation().search);
+
 function App (props) {
+  const query = useQuery()
   const [saved, setSaved] = useState(false)
 
   useEffect(() => {
-    const access_token = Cookies.get('gh_access_token')
+    const access_token = query.get('access_token')
+    Cookies.set('gh_access_token', access_token)
     localStorage.setItem('gh_access_token', access_token)
     setSaved(true)
   }, [])
