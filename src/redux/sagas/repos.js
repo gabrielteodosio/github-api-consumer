@@ -21,6 +21,23 @@ function* fetchRepos() {
   }
 }
 
+function* fetchRepoCommits({ repoName }) {
+  try {
+    const {
+      data: { success, commits }
+    } = yield call(api.repos.fetchRepoCommits, repoName)
+
+    if (!success) {
+      throw new Error()
+    }
+
+    yield put(ReposActions.fetchRepoCommitsSuccess(commits))
+  } catch (error) {
+    yield put(ReposActions.fetchRepoCommitsError(error))
+  }
+}
+
 export default [
   takeLatest(Types.FETCH_REPOS, fetchRepos),
+  takeLatest(Types.FETCH_REPO_COMMITS, fetchRepoCommits),
 ]
