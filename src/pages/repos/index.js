@@ -14,10 +14,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import styles from "./repos.module.less";
 import GithubLogo from "../../images/github-logo-white.png";
-import GithubMark from "../../images/github-mark-white.png";
 import {Creators as ReposActions} from '../../redux/ducks/repos'
-import {filter} from "ramda";
-
 
 function ReposPage({
   fetchRepos,
@@ -52,7 +49,7 @@ function ReposPage({
       if (text.length > 0 && filtered.length > 0) {
         setFilteredRepos(filtered);
       } else {
-        setFilteredRepos(null);
+        setFilteredRepos([]);
       }
     } else {
       setFilteredRepos(null);
@@ -79,9 +76,7 @@ function ReposPage({
     const commitData = commits[index]
     const { sha, commit, author, html_url: htmlUrl } = commitData
 
-    const handleClick = () => {
-      window.open(htmlUrl)
-    }
+    const handleClick = () => window.open(htmlUrl)
 
     return (
       <ListItem
@@ -102,10 +97,10 @@ function ReposPage({
   return (
     <Grid container component="main" className={styles.root}>
       <CssBaseline/>
-      <Grid item xs={12} sm={8} md={5} square className={styles.paper}>
+      <Grid item xs={12} sm={8} md={5} className={styles.paper}>
         <img src={GithubLogo} className={styles.avatar} alt={'github-logo'}/>
       </Grid>
-      <Grid item xs={12} sm={4} md={7} component={Paper} elevation={6} className={styles.contentContainer}>
+      <Grid item xs={12} sm={4} md={7} square component={Paper} elevation={6} className={styles.contentContainer}>
         <Grid container item component='div' className={styles.lists}>
           <Grid item xs={12} sm={12} md={6} className={styles.list}>
             <h2>Repositórios</h2>
