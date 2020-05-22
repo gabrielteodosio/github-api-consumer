@@ -46,11 +46,7 @@ function ReposPage({
     if (text) {
       filtered = repos.filter(({ full_name: fullName }) => fullName.toLowerCase().includes(text.toLowerCase()))
 
-      if (text.length > 0 && filtered.length > 0) {
-        setFilteredRepos(filtered);
-      } else {
-        setFilteredRepos([]);
-      }
+      setFilteredRepos(filtered);
     } else {
       setFilteredRepos(null);
     }
