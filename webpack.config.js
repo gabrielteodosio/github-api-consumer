@@ -51,7 +51,9 @@ module.exports = {
       API_URL: 'http://localhost:8000',
       GH_CLIENT_ID: 'Iv1.a77100850ebb1d4d',
     }),
-    new webpack.ProvidePlugin({ Cookies: 'js-cookie/src/js.cookie.js' }),
+    new webpack.ProvidePlugin({
+      Cookies: 'js-cookie/src/js.cookie.js'
+    }),
     new webpack.HotModuleReplacementPlugin()
   ],
   output: {
