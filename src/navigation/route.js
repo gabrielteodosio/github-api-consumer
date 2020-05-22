@@ -4,7 +4,7 @@ import {Redirect, Route as RRDRoute} from 'react-router-dom'
 import ApplicationLayout from "../components/application-layout";
 
 function Private({children, ...rest}) {
-  const isAuthenticated = !!Cookies.get('gh_access_token')
+  const isAuthenticated = !!localStorage.getItem('gh_access_token')
 
   return (
     <RRDRoute
