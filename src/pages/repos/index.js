@@ -48,13 +48,13 @@ function ReposPage({
 
     if (text) {
       filtered = repos.filter(({ full_name: fullName }) => fullName.toLowerCase().includes(text.toLowerCase()))
+
+      if (filtered.length > 0 || text.length > 0) {
+        setFilteredRepos(filtered.slice(0, 1));
+      }
     }
 
-    if (filtered.length > 0 || text.length > 0) {
-      setFilteredRepos(filtered.slice(0, 1));
-    } else {
-      setFilteredRepos(null);
-    }
+    setFilteredRepos(null);
   }
 
   function handleRenderRepository({ index, style }) {
